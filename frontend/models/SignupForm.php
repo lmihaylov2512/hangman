@@ -1,38 +1,37 @@
 <?php
+
 namespace frontend\models;
 
 use yii\base\Model;
-use common\models\User;
+use common\models\Player;
+use common\helpers\PlayerHelper;
 
 /**
- * Signup form
+ * 
+ * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
 class SignupForm extends Model
 {
-    public $username;
     public $email;
     public $password;
-
-
+    public $password_repeat;
+    public $first_name;
+    public $last_name;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-
-            ['email', 'trim'],
-            ['email', 'required'],
+            [['email', 'password', 'password_repeat', 'first_name', 'last_name'], 'required'],
+            [['email', 'first_name', 'last_name'], 'trim'],
             ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
-
-            ['password', 'required'],
+            ['email', 'string', 'max' => 128],
+            ['email', 'unique', 'targetClass' => Player::className(), 'message' => 'This email address has already been taken.'],
             ['password', 'string', 'min' => 6],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
+            [['first_name', 'last_name'], 'string', 'max' => 32],
         ];
     }
 
@@ -44,12 +43,10 @@ class SignupForm extends Model
     public function signup()
     {
         if (!$this->validate()) {
-            return null;
+            return;
         }
         
-        $user = new User();
-        $user->username = $this->username;
-        $user->email = $this->email;
+        $user = new Player(['status' => PlayerHelper::STATUS_ACTIVE, 'email' => $this->email, 'first_name' => $this->first_name, 'last_name' => $this->last_name]);
         $user->setPassword($this->password);
         $user->generateAuthKey();
         

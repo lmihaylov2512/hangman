@@ -1,6 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
+use common\helpers\{WordHelper, CategoryHelper};
+
+//var_dump(CategoryHelper::getCategoriesArray());
 
 $this->title = 'My Yii Application';
 ?>

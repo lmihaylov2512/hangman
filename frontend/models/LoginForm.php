@@ -1,18 +1,21 @@
 <?php
-namespace common\models;
+
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
+use common\models\Player;
 
 /**
- * Login form
+ * 
+ * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
 class LoginForm extends Model
 {
-    public $username;
+    public $email;
     public $password;
     public $rememberMe = true;
-
+    
     private $_user;
 
 
@@ -22,8 +25,8 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
+            // email and password are both required
+            [['email', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -57,22 +60,22 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-        } else {
-            return false;
         }
+        
+        return false;
     }
 
     /**
-     * Finds user by [[username]]
+     * Finds a user by [[email]].
      *
-     * @return User|null
+     * @return Player|null
      */
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Player::findByEmail($this->email);
         }
-
+        
         return $this->_user;
     }
 }
