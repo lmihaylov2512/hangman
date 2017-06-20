@@ -3,11 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+use yii\filters\{AccessControl, VerbFilter};
 use frontend\models\{LoginForm, SignupForm};
 
 /**
@@ -57,10 +54,6 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
     }
 
@@ -95,7 +88,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
+    
     /**
      * Logs out the current user.
      *
@@ -104,12 +97,10 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
+        
         return $this->goHome();
     }
-
     
-
     /**
      * Signs user up.
      *
@@ -126,13 +117,9 @@ class SiteController extends Controller
                 }
             }
         }
-
+        
         return $this->render('signup', [
             'model' => $model,
         ]);
     }
-
-    
-
-   
 }

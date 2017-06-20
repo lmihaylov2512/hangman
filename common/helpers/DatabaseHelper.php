@@ -5,6 +5,7 @@ namespace common\helpers;
 use yii\db\Migration;
 
 /**
+ * The class implements utilities about database.
  * 
  * @author Lachezar Mihaylov <l.mihaylov@15tech.org>
  */
@@ -20,6 +21,7 @@ class DatabaseHelper extends BaseHelper
     /** @var string database date format */
     const DATE_FORMAT = 'Y-m-d';
     
+    /** @var integer zero value for defaults */
     const DEFAULT_ZERO = 0;
     
     /**
@@ -31,8 +33,10 @@ class DatabaseHelper extends BaseHelper
     public static function getTableOptions(Migration $migration)
     {
         switch ($migration->db->driverName) {
-            case 'mysql': return 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-            default: return;
+            case 'mysql':
+                return 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            default:
+                return;
         }
     }
 }

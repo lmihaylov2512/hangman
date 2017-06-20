@@ -5,15 +5,26 @@ namespace common\helpers;
 use yii\db\Expression;
 use common\models\{Game, Player, Word};
 
+/**
+ * 
+ * 
+ * @author Lachezar Mihaylov <contact@lmihaylov.com>
+ */
 class GameHelper extends BaseHelper
 {
+    /** @var integer flag for incomplete(inactive) game status */
     const STATUS_INCOMPLETE = 0;
+    /** @var integer flag for active(playing) game status */
     const STATUS_ACTIVE = 1;
+    /** @var integer flag for won game status */
     const STATUS_WON = 2;
+    /** @var integer flag for lost game status */
     const STATUS_LOST = 3;
     
+    /** @var integer maximum allowed wrong attempts per game */
     const GAME_ATTEMPTS = 5;
     
+    /** @var string character that will be use to hide the unknown letter/s */
     const HIDDEN_CHARACTER = '_';
     
     protected static $unfinishedStatuses = [
@@ -21,6 +32,11 @@ class GameHelper extends BaseHelper
         self::STATUS_ACTIVE,
     ];
     
+    /**
+     * Returns available game statuses options in array structure.
+     * 
+     * @return array game statuses options (status id => status name) pairs
+     */
     public static function getStatusesOptions()
     {
         return [
@@ -31,30 +47,40 @@ class GameHelper extends BaseHelper
         ];
     }
     
+    /**
+     * Returns only the unfinished statuses.
+     * 
+     * @return array list with unfinished statuses
+     */
     public static function getUnfinishedStatuses()
     {
         return static::$unfinishedStatuses;
     }
     
-    public static function start(Player $player, Word $word)
+    public static function start(Player $player, Word $word, $isMulti = false)
     {
+        // close all active games of the player
         PlayerHelper::closeAllActiveGames($player);
         
+        // create a new game instance
         $game = new Game();
         $game->player_id = $player->id;
         $game->word_id = $word->id;
         $game->status = self::STATUS_ACTIVE;
         $game->word = $word->letters;
         $game->attempts = self::GAME_ATTEMPTS;
+        $game->is_multi = $isMulti ?? DatabaseHelper::BOOLEAN_FALSE;
         
         return $game->save() ? $game : null;
     }
     
-    public static function openClosedGame(Game $game)
+    public static function openClosedGame(Player $player, Game $game)
     {
-        if ($game->status != self::STATUS_INCOMPLETE) {
+        if ($player->id != $game->player_id || $game->status != self::STATUS_INCOMPLETE) {
             return false;
         }
+        
+        PlayerHelper::closeAllActiveGames($player);
         
         $game->status = self::STATUS_ACTIVE;
         $game->opened_at = new Expression('NOW()');

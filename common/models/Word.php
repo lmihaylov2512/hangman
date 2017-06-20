@@ -10,6 +10,7 @@ use Yii;
  * @property string $id
  * @property string $category_id
  * @property string $letters
+ * @property string $description
  * @property string $created_at
  * @property string $updated_at
  *
@@ -36,6 +37,7 @@ class Word extends \yii\db\ActiveRecord
             [['category_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['letters'], 'string', 'max' => 64],
+            [['description'], 'string', 'max' => 256],
             [['letters'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -50,6 +52,7 @@ class Word extends \yii\db\ActiveRecord
             'id' => 'ID',
             'category_id' => 'Category ID',
             'letters' => 'Letters',
+            'description' => 'Description',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

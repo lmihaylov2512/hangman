@@ -21,6 +21,7 @@ class m170615_162710_create_game_table extends Migration
             'status' => $this->smallInteger()->unsigned()->notNull()->comment('0-Incomplete;1-Active;2-Won;3-Lost'),
             'word' => $this->string(64)->notNull(),
             'attempts' => $this->smallInteger()->unsigned()->notNull(),
+            'is_multi' => $this->boolean()->unsigned()->notNull()->defaultValue(DatabaseHelper::BOOLEAN_FALSE)->comment('0-Not multi;1-Multi'),
             'started_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'finished_at' => $this->timestamp()->null(),
             'closed_at' => $this->timestamp()->null(),

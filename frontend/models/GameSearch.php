@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Game;
@@ -14,7 +15,7 @@ class GameSearch extends Game
     public function rules()
     {
         return [
-            [['status', 'attempts'], 'integer'],
+            [['status', 'attempts', 'is_multi'], 'integer'],
         ];
     }
     
@@ -29,7 +30,7 @@ class GameSearch extends Game
     
     public function search($params)
     {
-        $query = Game::find();
+        $query = Game::find()->where(['player_id' => Yii::$app->user->id]);
         
         // add conditions that should always apply here
 
@@ -54,6 +55,7 @@ class GameSearch extends Game
         $query->filterWhere([
             'status' => $this->status,
             'attempts' => $this->attempts,
+            'is_multi' => $this->is_multi,
         ]);
         
         return $dataProvider;

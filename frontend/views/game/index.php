@@ -10,7 +10,8 @@ use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use common\helpers\GameHelper;
 
-$this->title = 'All player games';
+$this->title = 'All games';
+$this->params['breadcrumbs'][] = 'Games';
 ?>
 <div class="game-index">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -35,6 +36,9 @@ $this->title = 'All player games';
                             'play' => function ($model) {
                                 return in_array($model->status, GameHelper::getUnfinishedStatuses());
                             },
+                            'view' => function ($model) {
+                                return !in_array($model->status, GameHelper::getUnfinishedStatuses());
+                            },
                         ],
                         'template' => '{play} {view}',
                         'contentOptions' => [
@@ -51,6 +55,7 @@ $this->title = 'All player games';
                     [
                         'attribute' => 'word0.category.name',
                     ],
+                    'is_multi:boolean',
                     'attempts:text',
                     'started_at:dateTime',
                     'finished_at:dateTime',
@@ -66,8 +71,15 @@ $this->title = 'All player games';
     <?= Html::beginForm(['/game/start']) ?>
         <div class="row">
             <div class="col-md-12">
+                
                 <div class="form-group">
-                    <?= Html::dropDownList('category_id', null, $categories, ['class' => 'form-control', 'prompt' => 'Всички']) ?>
+                    <?= Html::label('Select a category', 'game-category', ['class' => 'form-label']) ?>
+                    <?= Html::dropDownList('category_id', null, $categories, ['class' => 'form-control', 'id' => 'game-category', 'prompt' => 'Всички']) ?>
+                </div>
+                
+                <div class="form-group">
+                    <?= Html::checkbox('is_multi', false, ['id' => 'game-is-multi']) ?>
+                    <?= Html::label('Enable multiplayer', 'game-is-multi', ['class' => 'form-label']) ?>
                 </div>
 
                 <div class="form-group">

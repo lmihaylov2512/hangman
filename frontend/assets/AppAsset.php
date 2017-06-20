@@ -6,6 +6,8 @@ use yii\web\AssetBundle;
 
 /**
  * Main frontend application asset bundle.
+ * 
+ * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
 class AppAsset extends AssetBundle
 {
@@ -15,6 +17,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/main.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

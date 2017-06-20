@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\helpers\GameActionHelper;
 
 /**
  * This is the model class for table "game_action".
@@ -61,5 +62,15 @@ class GameAction extends \yii\db\ActiveRecord
     public function getGame()
     {
         return $this->hasOne(Game::className(), ['id' => 'game_id']);
+    }
+    
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        if ($this->type == GameActionHelper::TYPE_WORD) {
+            $this->success ? $this->game->win() : $this->game->lose();
+        }
+        
     }
 }

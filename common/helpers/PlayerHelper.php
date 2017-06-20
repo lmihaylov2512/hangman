@@ -13,6 +13,7 @@ class PlayerHelper extends BaseHelper
 {
     public static function closeActiveGames(Player $player, array $games)
     {
+        // define permanent conditions
         $condition = [
             'player_id' => $player->id,
             'status' => GameHelper::STATUS_ACTIVE,
@@ -28,10 +29,5 @@ class PlayerHelper extends BaseHelper
     public static function closeAllActiveGames(Player $player)
     {
         return static::closeActiveGames($player, []);
-    }
-    
-    public static function openIncompleteGame(Player $player, Game $game)
-    {
-        
     }
 }

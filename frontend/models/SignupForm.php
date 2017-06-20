@@ -7,15 +7,21 @@ use common\models\Player;
 use common\helpers\PlayerHelper;
 
 /**
+ * Signs user up model class provides necessary attributes, validations and registration feature.
  * 
  * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
 class SignupForm extends Model
 {
+    /** @var string email attribute */
     public $email;
+    /** @var string original password attribute */
     public $password;
+    /** @var string repeated password attribute */
     public $password_repeat;
+    /** @var string first name attribute */
     public $first_name;
+    /** @var string last name attribute */
     public $last_name;
     
     /**
@@ -46,6 +52,7 @@ class SignupForm extends Model
             return;
         }
         
+        // create a new user and try to save it
         $user = new Player(['status' => PlayerHelper::STATUS_ACTIVE, 'email' => $this->email, 'first_name' => $this->first_name, 'last_name' => $this->last_name]);
         $user->setPassword($this->password);
         $user->generateAuthKey();

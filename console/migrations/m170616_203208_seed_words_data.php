@@ -14,6 +14,9 @@ class m170616_203208_seed_words_data extends Migration
     /** @var integer animals category reference id */
     const ANIMALS_CATEGORY_ID = 3;
     
+    /**
+     * @inheritdoc
+     */
     public function up()
     {
         // populate words for countries category
@@ -65,8 +68,12 @@ class m170616_203208_seed_words_data extends Migration
         ]);
     }
     
+    /**
+     * @inheritdoc
+     */
     public function down()
     {
+        // delete all words entities
         $this->delete('word');
     }
 }

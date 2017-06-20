@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\{Controller, NotFoundHttpException};
 use yii\filters\{AccessControl, VerbFilter};
-use common\helpers\{CategoryHelper, WordHelper, GameHelper, AlphabetHelper};
+use common\helpers\{CategoryHelper, WordHelper, GameHelper, AlphabetHelper, GameActionHelper};
 use common\models\Game;
 use frontend\models\GameSearch;
 
@@ -61,7 +61,7 @@ class GameController extends Controller
     public function actionStart()
     {
         if (($word = WordHelper::getRandomWords(Yii::$app->request->post('category_id'))) !== null) {
-            if (($game = GameHelper::start(Yii::$app->user->identity, $word)) !== null) {
+            if (($game = GameHelper::start(Yii::$app->user->identity, $word, Yii::$app->request->post('is_multi'))) !== null) {
                 return $this->redirect(['play', 'id' => $game->id]);
             }
         }
@@ -73,22 +73,49 @@ class GameController extends Controller
     {
         $model = $this->findModel($id);
         
-        $alphabet = AlphabetHelper::getAlphabet('bg', true);
+        if (!in_array($model->status, GameHelper::getUnfinishedStatuses())) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+        
+        if ($model->status == GameHelper::STATUS_INCOMPLETE) {
+            GameHelper::openClosedGame(Yii::$app->user->identity, $model);
+        }
+        
+        $alphabet = AlphabetHelper::getGroupedAlphabet('bg', 5);
+        $letters = array_change_key_case(GameActionHelper::getLetters($model), CASE_LOWER);
+        $hiddenWord = GameHelper::hideWord($model, array_keys($letters));
+        $failures = GameActionHelper::countFailures($model);
         
         return $this->render('play', [
             'model' => $model,
             'alphabet' => $alphabet,
+            'letters' => $letters,
+            'hiddenWord' => $hiddenWord,
+            'failures' => $failures,
         ]);
     }
     
-    public function actionCheck()
+    public function actionView($id)
     {
         
     }
     
+    public function actionCheck($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            $model = $this->findModel($id);
+            
+            $action = GameActionHelper::create($model, Yii::$app->request->post('input'));
+            
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            
+            return $action;
+        }
+    }
+    
     protected function findModel($id)
     {
-        if (($model = Game::findOne($id)) !== null) {
+        if (($model = Game::findOne(['id' => $id, 'player_id' => Yii::$app->user->id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

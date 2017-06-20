@@ -7,18 +7,22 @@ use yii\base\Model;
 use common\models\Player;
 
 /**
+ * Model class that represents the login logic with attributes and validation rules.
  * 
  * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
 class LoginForm extends Model
 {
+    /** @var string email login attribute */
     public $email;
+    /** @var string password login attribute */
     public $password;
+    /** @var bool whether remember the user attribute */
     public $rememberMe = true;
     
+    /** @var common\models\Player the user(player) instance */
     private $_user;
-
-
+    
     /**
      * @inheritdoc
      */

@@ -40,6 +40,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
+        'assetManager' => [
+            'class' => 'yii\web\AssetManager',
+            'appendTimestamp' => true,
+        ],
     ],
     'params' => $params,
 ];

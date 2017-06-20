@@ -18,6 +18,7 @@ class m170615_145319_create_word_table extends Migration
             'id' => $this->primaryKey()->unsigned()->notNull(),
             'category_id' => $this->integer()->unsigned()->notNull(),
             'letters' => $this->string(64)->notNull(),
+            'description' => $this->string(256)->null(),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ], DatabaseHelper::getTableOptions($this));
