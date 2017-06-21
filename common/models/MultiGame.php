@@ -9,8 +9,10 @@ use Yii;
  *
  * @property string $primary_id
  * @property string $secondary_id
+ * @property string $created_by
  * @property string $created_at
  *
+ * @property Player $createdBy
  * @property Game $primary
  * @property Game $secondary
  */
@@ -30,9 +32,10 @@ class MultiGame extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['primary_id', 'secondary_id'], 'required'],
-            [['primary_id', 'secondary_id'], 'integer'],
+            [['primary_id', 'secondary_id', 'created_by'], 'required'],
+            [['primary_id', 'secondary_id', 'created_by'], 'integer'],
             [['created_at'], 'safe'],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Player::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['primary_id'], 'exist', 'skipOnError' => true, 'targetClass' => Game::className(), 'targetAttribute' => ['primary_id' => 'id']],
             [['secondary_id'], 'exist', 'skipOnError' => true, 'targetClass' => Game::className(), 'targetAttribute' => ['secondary_id' => 'id']],
         ];
@@ -46,8 +49,17 @@ class MultiGame extends \yii\db\ActiveRecord
         return [
             'primary_id' => 'Primary ID',
             'secondary_id' => 'Secondary ID',
+            'created_by' => 'Created By',
             'created_at' => 'Created At',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreatedBy()
+    {
+        return $this->hasOne(Player::className(), ['id' => 'created_by']);
     }
 
     /**

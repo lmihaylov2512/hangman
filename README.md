@@ -1,7 +1,7 @@
 Hangman the game
 ======================
 
-Open source web based application on PHP scripting language
+Open source web based application on PHP scripting language.
 
 ----------
 

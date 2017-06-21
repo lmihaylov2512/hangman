@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2099dd55ad0ea56853b9f025aa8e2928",
+    "content-hash": "ef7d0b1c869c58bbf05fdd5f1bdfa6a3",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -54,6 +54,36 @@
                 "responsive",
                 "web"
             ]
+        },
+        {
+            "name": "bower-asset/eve-raphael",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomasAlabes/eve.git",
+                "reference": "93132d5d47a0ce31dbd1b75208b1d4c0e2ad81e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomasAlabes/eve/zipball/93132d5d47a0ce31dbd1b75208b1d4c0e2ad81e8",
+                "reference": "93132d5d47a0ce31dbd1b75208b1d4c0e2ad81e8",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./eve.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple custom events"
         },
         {
             "name": "bower-asset/jquery",
@@ -146,6 +176,74 @@
             ]
         },
         {
+            "name": "bower-asset/mocha",
+            "version": "1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mochajs/mocha.git",
+                "reference": "7fc565ee3e225cb7a66bf39ae9c2c05b346675c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mochajs/mocha/zipball/7fc565ee3e225cb7a66bf39ae9c2c05b346675c1",
+                "reference": "7fc565ee3e225cb7a66bf39ae9c2c05b346675c1",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "mocha.js",
+                "bower-asset-ignore": [
+                    "bin",
+                    "editors",
+                    "images",
+                    "lib",
+                    "support",
+                    "test",
+                    ".gitignore",
+                    ".npmignore",
+                    ".travis.yml",
+                    "component.json",
+                    "index.js",
+                    "Makefile",
+                    "package.json"
+                ]
+            }
+        },
+        {
+            "name": "bower-asset/morrisjs",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/morrisjs/morris.js.git",
+                "reference": "d5cf1410eda7055eaf2c7d218d4cb24ec5ed55c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/morrisjs/morris.js/zipball/d5cf1410eda7055eaf2c7d218d4cb24ec5ed55c8",
+                "reference": "d5cf1410eda7055eaf2c7d218d4cb24ec5ed55c8",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=2.1.0",
+                "bower-asset/mocha": "~1.17.1",
+                "bower-asset/raphael": ">=2.0"
+            },
+            "require-dev": {
+                "bower-asset/chai": "~1.9.0",
+                "bower-asset/chai-jquery": "~1.2.1",
+                "bower-asset/mocha": "~1.17.1",
+                "bower-asset/morrisjs-sinon-file": "*",
+                "bower-asset/sinon-chai": "~2.5.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./morris.js",
+                    "./morris.css"
+                ]
+            }
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -172,6 +270,50 @@
                     "package.json"
                 ]
             }
+        },
+        {
+            "name": "bower-asset/raphael",
+            "version": "v2.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DmitryBaranovskiy/raphael.git",
+                "reference": "c02b9c125d036e42b9bb95d0e401bbf6a5153da5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DmitryBaranovskiy/raphael/zipball/c02b9c125d036e42b9bb95d0e401bbf6a5153da5",
+                "reference": "c02b9c125d036e42b9bb95d0e401bbf6a5153da5",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/eve-raphael": "0.5.0"
+            },
+            "require-dev": {
+                "bower-asset/requirejs": "2.3.2"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "raphael.min.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "*.html",
+                    "*.json",
+                    "*.markdown",
+                    "*.md",
+                    "copy.js",
+                    "Gruntfile.js",
+                    "reference.js"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "JavaScript Vector Library",
+            "keywords": [
+                "javascript",
+                "svg",
+                "vml"
+            ]
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -3247,7 +3389,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=7.0.0"
     },
     "platform-dev": []
 }

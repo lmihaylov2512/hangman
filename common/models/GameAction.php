@@ -68,9 +68,8 @@ class GameAction extends \yii\db\ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
         
-        if ($this->type == GameActionHelper::TYPE_WORD) {
-            $this->success ? $this->game->win() : $this->game->lose();
+        if (($status = GameActionHelper::considerGameStatus($this)) !== null) {
+            $this->game->finish($status);
         }
-        
     }
 }

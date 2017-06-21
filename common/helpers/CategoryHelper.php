@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
  * Category helper class. It contains useful methods for retrieving categories list.
  * 
  * @author Lachezar Mihaylov <contact@lmihaylov.com>
+ * @since 1.0
  */
 class CategoryHelper extends BaseHelper
 {

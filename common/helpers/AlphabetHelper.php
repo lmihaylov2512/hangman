@@ -6,6 +6,7 @@ namespace common\helpers;
  * Storage class for alphabets of different languages.
  * 
  * @author Lachezar Mihaylov <contact@lmihaylov.com>
+ * @since 1.0
  */
 class AlphabetHelper extends BaseHelper
 {

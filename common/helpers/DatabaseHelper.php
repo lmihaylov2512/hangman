@@ -8,6 +8,7 @@ use yii\db\Migration;
  * The class implements utilities about database.
  * 
  * @author Lachezar Mihaylov <l.mihaylov@15tech.org>
+ * @since 1.0
  */
 class DatabaseHelper extends BaseHelper
 {

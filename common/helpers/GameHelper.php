@@ -6,7 +6,7 @@ use yii\db\Expression;
 use common\models\{Game, Player, Word};
 
 /**
- * 
+ * This game helper class has several methods that implement important business logic for moving game-flow forward.
  * 
  * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
@@ -30,6 +30,11 @@ class GameHelper extends BaseHelper
     protected static $unfinishedStatuses = [
         self::STATUS_INCOMPLETE,
         self::STATUS_ACTIVE,
+    ];
+    
+    protected static $finishedStatuses = [
+        self::STATUS_WON,
+        self::STATUS_LOST,
     ];
     
     /**
@@ -57,6 +62,11 @@ class GameHelper extends BaseHelper
         return static::$unfinishedStatuses;
     }
     
+    public static function getFinishedStatuses()
+    {
+        return static::$finishedStatuses;
+    }
+    
     public static function start(Player $player, Word $word, $isMulti = false)
     {
         // close all active games of the player
@@ -69,7 +79,7 @@ class GameHelper extends BaseHelper
         $game->status = self::STATUS_ACTIVE;
         $game->word = $word->letters;
         $game->attempts = self::GAME_ATTEMPTS;
-        $game->is_multi = $isMulti ?? DatabaseHelper::BOOLEAN_FALSE;
+        $game->is_multi = (int) $isMulti ?? DatabaseHelper::BOOLEAN_FALSE;
         
         return $game->save() ? $game : null;
     }

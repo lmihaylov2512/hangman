@@ -129,28 +129,36 @@ class Game extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Game::className(), ['id' => 'primary_id'])->viaTable('multi_game', ['secondary_id' => 'id']);
     }
-    
-    public function win()
+    /**
+     * 
+     * @param integer $status the new game status (win/lose)
+     * @return boolean the result from finished action
+     */
+    public function finish($status)
     {
-        if ($this->status != GameHelper::STATUS_ACTIVE) {
+        if ($this->status != GameHelper::STATUS_ACTIVE || !in_array($status, GameHelper::getFinishedStatuses())) {
             return false;
         }
         
-        $this->status = GameHelper::STATUS_WON;
+        $this->status = $status;
         $this->finished_at = new Expression('NOW()');
         
         return $this->save(false, ['status', 'finished_at']);
     }
     
+    /**
+     * @return boolean the result from action
+     */
+    public function win()
+    {
+        return $this->finish(GameHelper::STATUS_WON);
+    }
+    
+    /**
+     * @return boolean the result from action
+     */
     public function lose()
     {
-        if ($this->status != GameHelper::STATUS_ACTIVE) {
-            return false;
-        }
-        
-        $this->status = GameHelper::STATUS_LOST;
-        $this->finished_at = new Expression('NOW()');
-        
-        return $this->save(false, ['status', 'finished_at']);
+        return $this->finish(GameHelper::STATUS_LOST);
     }
 }

@@ -6,6 +6,7 @@ namespace common\helpers;
  * Base helper class which shares common functionalities.
  * 
  * @author Lachezar Mihaylov <contact@lmihaylov.com>
+ * @since 1.0
  */
 class BaseHelper
 {

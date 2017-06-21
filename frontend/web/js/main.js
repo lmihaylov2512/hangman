@@ -1,9 +1,7 @@
 (function (w, d, $) {
     
-    console.log('testing...');
-    
     $(d).ready(function (e) {
-       
+        
         $('.game-alphabet .btn.btn-default').on('click', function (e) {
             var el = $(this),
                 url = $('.game-action').data('url');
@@ -20,8 +18,14 @@
                 el.data('used', 1);
                 el.removeClass('btn-default').addClass(res.success ? 'btn-success' : 'btn-danger');
             });
-            
-       });
+        });
+        
+        if ($('#donut-games').length && typeof window.donutGamesData !== 'undefined') {
+            Morris.Donut({
+                element: 'donut-games',
+                data: window.donutGamesData
+            });
+        }
         
     });
     

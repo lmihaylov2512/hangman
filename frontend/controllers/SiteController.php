@@ -8,7 +8,7 @@ use yii\filters\{AccessControl, VerbFilter};
 use frontend\models\{LoginForm, SignupForm};
 
 /**
- * 
+ * Site controller provides the following features: home page, login, sign up, logout and error handler.
  * 
  * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
@@ -44,7 +44,7 @@ class SiteController extends Controller
             ],
         ];
     }
-
+    
     /**
      * @inheritdoc
      */
@@ -56,7 +56,7 @@ class SiteController extends Controller
             ],
         ];
     }
-
+    
     /**
      * Displays home page.
      *
