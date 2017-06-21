@@ -1,23 +1,21 @@
 {
-    "name": "yiisoft/yii2-app-advanced",
-    "description": "Yii 2 Advanced Project Template",
-    "keywords": ["yii2", "framework", "advanced", "project template"],
-    "homepage": "http://www.yiiframework.com/",
+    "name": "lmihaylov/hangman",
+    "description": "The hangman game that is implemented like web application.",
+    "keywords": ["hangman", "multiplayer hangman", "open source hangman"],
+    "homepage": "https://github.com/lmihaylov2512/hangman",
     "type": "project",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
+        "issues": "https://github.com/lmihaylov2512/hangman/issues",
+        "source": "https://github.com/lmihaylov2512/hangman"
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0.0",
         "yiisoft/yii2": "~2.0.6",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "bower-asset/morrisjs": "^0.5.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

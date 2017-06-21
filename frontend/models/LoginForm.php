@@ -1,29 +1,36 @@
 <?php
-namespace common\models;
+
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
+use common\models\Player;
 
 /**
- * Login form
+ * Model class that represents the login logic with attributes and validation rules.
+ * 
+ * @author Lachezar Mihaylov <contact@lmihaylov.com>
  */
 class LoginForm extends Model
 {
-    public $username;
+    /** @var string email login attribute */
+    public $email;
+    /** @var string password login attribute */
     public $password;
+    /** @var bool whether remember the user attribute */
     public $rememberMe = true;
-
+    
+    /** @var common\models\Player the user(player) instance */
     private $_user;
-
-
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
+            // email and password are both required
+            [['email', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -57,22 +64,22 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-        } else {
-            return false;
         }
+        
+        return false;
     }
 
     /**
-     * Finds user by [[username]]
+     * Finds a user by [[email]].
      *
-     * @return User|null
+     * @return Player|null
      */
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Player::findByEmail($this->email);
         }
-
+        
         return $this->_user;
     }
 }
